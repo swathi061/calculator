@@ -20,7 +20,7 @@
   .mainframe{
     background-color: #251B37;
     width: 250px;
-    height: 350px;
+    height: 400px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -30,13 +30,26 @@
   .display{
     margin: 20px;
     width: 200px;
-    height: 45px;
+    height: 70px;
     border-radius: 15px;
     background-color: #433454;
+    display: flex;
+    flex-direction: column;
+  }
+  .screen{
     color: #FFCACA;
     text-align: right;
     font-size: 20px;
-    padding: 10px;
+    margin: 5px;
+    background-color: #433454;
+  }
+  .active{
+    background-color: #433454;
+    color: #FFCACA;
+    text-align: right;
+    margin: 5px;
+    font-size: 15px;
+    margin-top: 5px;
   }
 .buttons{
     background-color: #251B37;

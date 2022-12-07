@@ -1,5 +1,7 @@
 const buttons = document.getElementsByClassName("num");
-const screen = document.getElementById("display");
+const op = document.getElementsByClassName("op");
+const screen = document.getElementById("screen");
+const active = document.getElementById("active");
 const enter = document.getElementById("enter");
 const clear = document.getElementById("clr");
 const del = document.getElementById("del");
@@ -8,51 +10,68 @@ const sub = document.getElementById("sub");
 const mul = document.getElementById("mul");
 const div = document.getElementById("div");
 let operator = "+";
-let c = 0;
+let c = 0, a = 0, b = 0;
 clear.addEventListener("click", clearScreen);
 del.addEventListener("click", deleteNum);
 add.addEventListener("click", function () {
-    operator = "+";
+    displayScreen("+");
 });
 sub.addEventListener("click", function () {
-    operator = "-";
+    displayScreen("-");
 });
 mul.addEventListener("click", function () {
-    operator = "*";
+    displayScreen("*");
 });
 div.addEventListener("click", function () {
-    operator = "/";
+    displayScreen("/");
 });
+
 for (let i = 0; i < buttons.length; i++) {
     buttons[i].addEventListener("click", function () {
         screen.innerHTML += buttons[i].textContent;
     });
 }
-
+function displayScreen(op) {
+    if (active.textContent === "") {
+        operator = op;
+        active.innerHTML = screen.textContent + operator;
+        a = Number(screen.textContent);
+        screen.textContent = "";
+    } else {
+        calculate();
+        a = c;
+        operator = op;
+        active.innerHTML = a + operator;
+        screen.textContent = "";
+    }
+}
 function clearScreen() {
     screen.innerHTML = "";
+    active.innerHTML = "";
 }
 
 function deleteNum() {
     screen.textContent = screen.textContent.slice(0, -1);
-    console.log(operator);
 }
 
-enter.addEventListener("click", function () {
+function calculate() {
     let num = screen.innerHTML;
-    num = num.split(/[+\-*/.]/);
-    a = Number(num[0]);
-    b = Number(num[1]);
+    b = Number(num);
     if (operator === "+") {
         c = a + b;
-    }else if (operator === "-") {
+    } else if (operator === "-") {
         c = a - b;
-    }else if (operator === "*") {
+    } else if (operator === "*") {
         c = a * b;
-    }else if (operator === "/") {
+    } else if (operator === "/") {
         c = a / b;
     }
+}
+enter.addEventListener("click", function () {
+    calculate();
     screen.innerHTML = c;
+    active.innerHTML = "";
+    a = c;
 });
 
 
